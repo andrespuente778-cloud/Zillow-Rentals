@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zilow Rentals | Find Your Next Home</title>
+  <meta name="description" content="Browse homes and rentals with Zilow Rentals." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { brand: { DEFAULT: '#006AFF', dark: '#0050C8', light: '#E8F1FF' } },
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    html { scroll-behavior: smooth; }
+    .hero-bg {
+      background-image: linear-gradient(rgba(10,25,50,.55), rgba(10,25,50,.55)), url('hero.jpg');
+      background-size: cover;
+      background-position: center;
+      background-color: #1e3a5f;
+    }
+    .img-fallback { background: linear-gradient(135deg, #dbe7f7, #b9cfe9); }
+  </style>
+</head>
+<body class="font-sans text-slate-800 bg-slate-50 antialiased">
+
+  <!-- 1. STICKY HEADER -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-200">
+    <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+      <a href="#top" class="flex items-center gap-2">
+        <img src="logo.png" alt="Zilow Rentals logo" class="h-9 w-auto" onerror="this.style.display='none'" />
+        <span class="text-xl font-extrabold text-brand tracking-tight">Zilow Rentals</span>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-8 text-sm font-semibold">
+        <a href="#categories" class="hover:text-brand">Browse</a>
+        <a href="#listings" class="hover:text-brand">Listings</a>
+        <a href="#contact" class="hover:text-brand">Contact</a>
+        <a href="#contact" class="bg-brand hover:bg-brand-dark text-white px-5 py-2 rounded-full">Get in Touch</a>
+      </nav>
+
+      <button id="menuBtn" class="md:hidden p-2 rounded-lg hover:bg-slate-100" aria-label="Open menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+
+    <div id="mobileMenu" class="hidden md:hidden border-t border-slate-200 bg-white">
+      <div class="px-4 py-3 flex flex-col gap-1 text-sm font-semibold">
+        <a href="#categories" class="py-3 border-b border-slate-100">Browse</a>
+        <a href="#listings" class="py-3 border-b border-slate-100">Listings</a>
+        <a href="#contact" class="py-3">Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- 2. HERO -->
+    <section class="hero-bg">
+      <div class="max-w-6xl mx-auto px-4 py-20 sm:py-32 text-center">
+        <h1 class="text-3xl sm:text-5xl font-extrabold text-white leading-tight">
+          Find a place you'll love to call home
+        </h1>
+        <p class="mt-4 text-base sm:text-lg text-white/90 max-w-2xl mx-auto">
+          Homes and rentals in Wisconsin and Texas, all in one place.
+        </p>
+
+        <form onsubmit="event.preventDefault(); document.getElementById('listings').scrollIntoView();"
+              class="mt-8 max-w-2xl mx-auto bg-white rounded-full shadow-2xl flex items-center p-1.5 sm:p-2">
+          <svg class="w-5 h-5 text-slate-400 ml-3 sm:ml-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.3-4.3"/></svg>
+          <input id="searchInput" type="text" placeholder="Enter an address, city, or ZIP"
+                 class="flex-1 min-w-0 px-3 py-3 text-sm sm:text-base text-slate-800 placeholder-slate-400 bg-transparent focus:outline-none" />
+          <button type="submit" class="bg-brand hover:bg-brand-dark text-white font-semibold px-5 sm:px-8 py-3 rounded-full text-sm sm:text-base">
+            Search
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- 3. CATEGORIES -->
+    <section id="categories" class="bg-white border-b border-slate-200">
+      <div class="max-w-6xl mx-auto px-4 py-5 flex items-center justify-center gap-3">
+        <button data-filter="buy"  class="pill px-6 py-2 rounded-full border border-slate-300 text-sm font-semibold hover:border-brand hover:text-brand">Buy</button>
+        <button data-filter="rent" class="pill px-6 py-2 rounded-full border border-slate-300 text-sm font-semibold hover:border-brand hover:text-brand">Rent</button>
+        <button data-filter="sold" class="pill px-6 py-2 rounded-full border border-slate-300 text-sm font-semibold hover:border-brand hover:text-brand">Sold</button>
+      </div>
+    </section>
+
+    <!-- 4. FEATURED LISTINGS -->
+    <section id="listings" class="max-w-6xl mx-auto px-4 py-12 sm:py-16">
+      <div class="mb-8">
+        <h2 class="text-2xl sm:text-3xl font-extrabold">Featured Listings</h2>
+        <p class="text-slate-500 mt-1">Hand-picked properties available now.</p>
+      </div>
+
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+
+        <!-- Listing 1 -->
+        <article data-category="buy" class="listing bg-white rounded-2xl shadow-sm hover:shadow-xl transition overflow-hidden border border-slate-200">
+          <div class="relative img-fallback">
+            <img src="house1-ext.jpg" alt="Exterior of home on W Seneca Dr" class="w-full h-56 object-cover" loading="lazy" />
+            <span class="absolute top-3 left-3 bg-white text-xs font-bold px-3 py-1 rounded-full shadow">For Sale</span>
+          </div>
+          <div class="grid grid-cols-2 gap-1 p-1 bg-white">
+            <img src="house1-int1.jpg" alt="Interior photo 1" class="img-fallback w-full h-24 object-cover rounded-lg" loading="lazy" />
+            <img src="house1-int2.jpg" alt="Interior photo 2" class="img-fallback w-full h-24 object-cover rounded-lg" loading="lazy" />
+          </div>
+          <div class="p-5">
+            <p class="text-2xl font-extrabold">$30,000</p>
+            <p class="mt-1 text-sm font-semibold text-slate-700">3 bds &nbsp;|&nbsp; 2 ba</p>
+            <p class="mt-1 text-sm text-slate-500">W Seneca Dr, Appleton, WI 54914</p>
+            <a href="#contact" data-property="W Seneca Dr, Appleton, WI 54914" class="inquire mt-4 block text-center bg-brand-light text-brand font-semibold py-2.5 rounded-lg hover:bg-brand hover:text-white transition">Inquire</a>
+          </div>
+        </article>
+
+        <!-- Listing 2 -->
+        <article data-category="rent" class="listing bg-white rounded-2xl shadow-sm hover:shadow-xl transition overflow-hidden border border-slate-200">
+          <div class="relative img-fallback">
+            <img src="house2-ext.jpg" alt="Exterior of home on Adleta Blvd" class="w-full h-56 object-cover" loading="lazy" />
+            <span class="absolute top-3 left-3 bg-white text-xs font-bold px-3 py-1 rounded-full shadow">For Rent</span>
+          </div>
+          <div class="grid grid-cols-2 gap-1 p-1 bg-white">
+            <img src="house2-int1.jpg" alt="Interior photo 1" class="img-fallback w-full h-24 object-cover rounded-lg" loading="lazy" />
+            <img src="house2-int2.jpg" alt="Interior photo 2" class="img-fallback w-full h-24 object-cover rounded-lg" loading="lazy" />
+          </div>
+          <div class="p-5">
+            <p class="text-2xl font-extrabold">$1,311<span class="text-sm font-medium text-slate-500">/mo</span></p>
+            <p class="mt-1 text-sm font-semibold text-slate-700">1 bd &nbsp;|&nbsp; 1 ba</p>
+            <p class="mt-1 text-sm text-slate-500">Adleta Blvd, Dallas, TX</p>
+            <a href="#contact" data-property="Adleta Blvd, Dallas, TX" class="inquire mt-4 block text-center bg-brand-light text-brand font-semibold py-2.5 rounded-lg hover:bg-brand hover:text-white transition">Inquire</a>
+          </div>
+        </article>
+
+        <!-- Listing 3 -->
+        <article data-category="rent" class="listing bg-white rounded-2xl shadow-sm hover:shadow-xl transition overflow-hidden border border-slate-200">
+          <div class="relative img-fallback">
+            <img src="house3-ext.jpg" alt="Exterior of Melody Parc" class="w-full h-56 object-cover" loading="lazy" />
+            <span class="absolute top-3 left-3 bg-white text-xs font-bold px-3 py-1 rounded-full shadow">For Rent</span>
+          </div>
+          <div class="grid grid-cols-2 gap-1 p-1 bg-white">
+            <img src="house3-int1.jpg" alt="Interior photo 1" class="img-fallback w-full h-24 object-cover rounded-lg" loading="lazy" />
+            <img src="house3-int2.jpg" alt="Interior photo 2" class="img-fallback w-full h-24 object-cover rounded-lg" loading="lazy" />
+          </div>
+          <div class="p-5">
+            <p class="text-2xl font-extrabold">$1,500<span class="text-sm font-medium text-slate-500">/mo</span></p>
+            <p class="mt-1 text-sm font-semibold text-slate-700">2 beds &nbsp;|&nbsp; 1 bath</p>
+            <p class="mt-1 text-sm text-slate-500">Melody Parc, 5951 Melody Ln, Dallas, TX</p>
+            <a href="#contact" data-property="Melody Parc, 5951 Melody Ln, Dallas, TX" class="inquire mt-4 block text-center bg-brand-light text-brand font-semibold py-2.5 rounded-lg hover:bg-brand hover:text-white transition">Inquire</a>
+          </div>
+        </article>
+
+      </div>
+
+      <p id="noResults" class="hidden text-center text-slate-500 mt-10">No listings in this category yet. Check back soon!</p>
+    </section>
+
+    <!-- 5. CONTACT FORM -->
+    <section id="contact" class="bg-white border-t border-slate-200">
+      <div class="max-w-2xl mx-auto px-4 py-12 sm:py-16">
+        <div class="text-center mb-8">
+          <h2 class="text-2xl sm:text-3xl font-extrabold">Request Information</h2>
+          <p class="text-slate-500 mt-2">Interested in a property? Send a message and we'll get back to you shortly.</p>
+        </div>
+
+        <form action="https://api.web3forms.com/submit" method="POST"
+              class="bg-slate-50 border border-slate-200 rounded-2xl p-5 sm:p-8 shadow-sm space-y-5">
+          <input type="hidden" name="access_key" value="7cee38e4-b902-4260-bb76-15d48ff4e69d" />
+          <input type="hidden" name="subject" value="New inquiry from Zilow Rentals website" />
+          <input type="hidden" name="from_name" value="Zilow Rentals Website" />
+          <input type="checkbox" name="botcheck" class="hidden" style="display:none;" />
+
+          <div>
+            <label for="name" class="block text-sm font-semibold mb-1.5">Full Name</label>
+            <input id="name" name="name" type="text" required placeholder="Jane Smith"
+                   class="w-full px-4 py-3 rounded-lg border border-slate-300 bg-white focus:outline-none focus:ring-2 focus:ring-brand focus:border-brand" />
+          </div>
+
+          <div class="grid sm:grid-cols-2 gap-5">
+            <div>
+              <label for="email" class="block text-sm font-semibold mb-1.5">Email</label>
+              <input id="email" name="email" type="email" required placeholder="you@email.com"
+                     class="w-full px-4 py-3 rounded-lg border border-slate-300 bg-white focus:outline-none focus:ring-2 focus:ring-brand focus:border-brand" />
+            </div>
+            <div>
+              <label for="phone" class="block text-sm font-semibold mb-1.5">Phone</label>
+              <input id="phone" name="phone" type="tel" placeholder="(555) 123-4567"
+                     class="w-full px-4 py-3 rounded-lg border border-slate-300 bg-white focus:outline-none focus:ring-2 focus:ring-brand focus:border-brand" />
+            </div>
+          </div>
+
+          <div>
+            <label for="property" class="block text-sm font-semibold mb-1.5">Property of Interest</label>
+            <select id="property" name="property" required
+                    class="w-full px-4 py-3 rounded-lg border border-slate-300 bg-white focus:outline-none focus:ring-2 focus:ring-brand focus:border-brand">
+              <option value="" disabled selected>Select a property</option>
+              <option>W Seneca Dr, Appleton, WI 54914 - $30,000</option>
+              <option>Adleta Blvd, Dallas, TX - $1,311/mo</option>
+              <option>Melody Parc, 5951 Melody Ln, Dallas, TX - $1,500/mo</option>
+              <option>General inquiry</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="message" class="block text-sm font-semibold mb-1.5">Message</label>
+            <textarea id="message" name="message" rows="5" required placeholder="Tell us how we can help..."
+                      class="w-full px-4 py-3 rounded-lg border border-slate-300 bg-white focus:outline-none focus:ring-2 focus:ring-brand focus:border-brand"></textarea>
+          </div>
+
+          <button type="submit"
+                  class="w-full bg-brand hover:bg-brand-dark text-white font-bold py-3.5 rounded-lg shadow-md transition">
+            Send Inquiry
+          </button>
+          <p class="text-xs text-center text-slate-400">Your information is only used to respond to your inquiry.</p>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-slate-900 text-slate-400">
+    <div class="max-w-6xl mx-auto px-4 py-8 text-center text-sm">
+      <p class="text-white font-bold text-lg">Zilow Rentals</p>
+      <p class="mt-2">&copy; <span id="year"></span> Zilow Rentals. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.add('hidden')));
+
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Category filter pills (tap again to clear)
+    const pills = document.querySelectorAll('.pill');
+    const cards = document.querySelectorAll('.listing');
+    const noResults = document.getElementById('noResults');
+    let active = null;
+
+    pills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        const f = pill.dataset.filter;
+        active = (active === f) ? null : f;
+        pills.forEach(p => {
+          const on = p.dataset.filter === active;
+          p.classList.toggle('bg-brand', on);
+          p.classList.toggle('text-white', on);
+          p.classList.toggle('border-brand', on);
+        });
+        let shown = 0;
+        cards.forEach(c => {
+          const show = !active || c.dataset.category === active;
+          c.classList.toggle('hidden', !show);
+          if (show) shown++;
+        });
+        noResults.classList.toggle('hidden', shown > 0);
+        document.getElementById('listings').scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+
+    // Search bar filters listings by address text
+    document.getElementById('searchInput').addEventListener('input', e => {
+      const q = e.target.value.toLowerCase().trim();
+      let shown = 0;
+      cards.forEach(c => {
+        const match = !q || c.textContent.toLowerCase().includes(q);
+        c.classList.toggle('hidden', !match);
+        if (match) shown++;
+      });
+      noResults.classList.toggle('hidden', shown > 0);
+    });
+
+    // "Inquire" buttons preselect the property in the form
+    document.querySelectorAll('.inquire').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const sel = document.getElementById('property');
+        for (const opt of sel.options) {
+          if (opt.text.startsWith(btn.dataset.property)) { sel.value = opt.text; break; }
+        }
+      });
+    });
+  </script>
+</body>
+</html>
